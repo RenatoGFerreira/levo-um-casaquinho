@@ -72,7 +72,7 @@ export const ScreenContainer = styled.div`
     box-sizing: border-box;
     background-color: #fff;
     box-shadow: 5px 5px 5px #cecece ;
-    width: 37%; 
+    width: 33%; 
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -263,6 +263,8 @@ export const BoxDia = styled.div`
         &>span{
             margin: 0 5px;
             font-size: 21px;
+            text-align: center;
+
         }
     }
 `
@@ -313,6 +315,7 @@ export const BoxTexto = styled.div`
     @media (max-width: 1650px){
         &>h1{
             font-size: 16px;
+            text-align: center;
         }
     }
 `
