@@ -10,7 +10,6 @@ export default function ToggleSwitch({isChecked, onClick}){
     )
 }
 
-
 const ToggleSwitchWrapper = styled.label`
     background: #e9e9ea;
     width: 4rem;

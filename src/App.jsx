@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Hoje from "./pages/Hoje/Hoje";
+import Home from "./pages/Home/Home";
 import ProximosDias from "./pages/ProximosDIas/ProximosDias";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Hoje />} />
+        <Route path="/" element={<Home />} />
         <Route path="/proximosDias" element={<ProximosDias />} />
       </Routes>
     </BrowserRouter>
