@@ -9,14 +9,16 @@ import dayjs from "dayjs";
 export default function Menu({setShowMenu, showMenu}) {
     const [isChecked, setIsChecked] = useState(false)
     const [isDarkMode, setIsDarkMode] = useState(false)
-    const {weatherData, setWeatherData} = useContext(WeatherContext)
+    const {weatherData, setWeatherData, setCity} = useContext(WeatherContext)
     const [icon, setIcon] = useState(weatherData?.weather[0]?.icon)
+    const [cityName, setCityName] = useState({
+        city: ''
+      })
 
     useEffect(() => {
         setIcon(weatherData?.weather[0]?.icon)
       }, [weatherData])
 
-    console.log(weatherData)
     const handleCheck = () => {
         setIsChecked((prevState) => !prevState)
     }
@@ -44,6 +46,20 @@ export default function Menu({setShowMenu, showMenu}) {
                 return ''
         }
     }
+
+    function handleChange(event) {
+        const newCity = { ...cityName };
+        newCity[event.target.name] = event.target.value;
+        setCityName(newCity);
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        if (!cityName.city) {
+          return
+        }
+        setCity(cityName.city)
+      }
     
     return (
         <ScreenContainer>
@@ -56,9 +72,15 @@ export default function Menu({setShowMenu, showMenu}) {
                 </div>
             </BoxTitle>
             <BoxInput>
-                <StyledForm>
+                <StyledForm onSubmit={(event) => handleSubmit(event)}>
                     <Icone />
-                    <StyledInput type="text" placeholder="Digite uma cidade" />
+                    <StyledInput 
+                        type="text" 
+                        placeholder="Digite uma cidade"
+                        name="city" 
+                        value={cityName.city}
+                        onChange={(event) => handleChange(event)}
+                    />
                 </StyledForm>
             </BoxInput>
             <BoxTemperatura>

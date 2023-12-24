@@ -14,7 +14,16 @@ export const WeatherProvider = ({children}) => {
             setWeatherData(response.data)
         })
         .catch((error) => {
-            console.log(error)
+            if (error.response.status === 404) {
+                alert("Por favor, confira o nome da cidade digitada.")
+              } else if (error.response.status === 401 || error.response.status === 400) {
+                alert("Por favor, verifique as suas credenciais de acesso!")
+              } else if (error.response.status === 429) {
+                alert("Por favor, aguarde um tempo. A API está com muitas requisições!")
+              } else {
+                alert("Algo de errado aconteceu! Tente novamente mais tarde.")
+                console.error(error);
+            }
         })
     }
 
