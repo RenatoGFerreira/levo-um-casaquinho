@@ -6,22 +6,22 @@ import { WeatherContext } from "../../context/WeatherContext";
 import ProximosDias from "../ProximosDIas/ProximosDias";
 
 export default function Home() {
-    const {weatherData, setWeatherData} = useContext(WeatherContext)
+    const { weatherData, setWeatherData } = useContext(WeatherContext)
     const [today, setToday] = useState(true)
     const [nextDays, setNextDays] = useState(false)
 
-    function selectToday(){
+    function selectToday() {
         setToday(true)
         setNextDays(false)
     }
-    function selectNextDays(){
+    function selectNextDays() {
         setToday(false)
         setNextDays(true)
     }
 
     return (
         <ScreenContainer>
-            <Menu/>
+            <Menu />
             <BoxScreen>
                 <BoxTop>
                     <SubMenuScreen>
@@ -29,13 +29,13 @@ export default function Home() {
                         <span onClick={selectNextDays}>Próximos Dias</span>
                     </SubMenuScreen>
                     <CityScreen>
-                        <h1>{weatherData? weatherData?.name : "Carregando..."}</h1>
-                        <span>Latitude: {weatherData? weatherData?.coord?.lat : "Carregando..."}</span>
-                        <span>Longitude: {weatherData? weatherData?.coord?.lon : "Carregando..."}</span>
+                        <h1>{weatherData ? weatherData?.name : "Carregando..."}</h1>
+                        <span>Latitude: {weatherData ? weatherData?.coord?.lat : "Carregando..."}</span>
+                        <span>Longitude: {weatherData ? weatherData?.coord?.lon : "Carregando..."}</span>
                     </CityScreen>
                 </BoxTop>
                 <BoxMiddle>
-                    {today ? <Hoje weatherData={weatherData}/> : <ProximosDias/>}
+                    {today ? <Hoje weatherData={weatherData} /> : <ProximosDias />}
                 </BoxMiddle>
                 <BoxBotton>
                     <TextScreen>
@@ -129,6 +129,10 @@ const TextScreen = styled.p`
         font-style: normal;
         font-weight: 400;
         line-height: 48px;
+        &>a{
+            text-decoration: none;
+            font-weight: 600;
+        }
         @media (max-width: 1600px) {
             display: flex;
             justify-content: center;

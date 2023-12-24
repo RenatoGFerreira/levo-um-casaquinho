@@ -18,11 +18,11 @@ export default function Hoje({ weatherData }) {
                 </InfoBox>
                 <InfoBox>
                     <h1>Velocidade do Vento</h1>
-                    <span>{weatherData? weatherData?.wind?.speed : "0"} m/s</span>
+                    <span>{weatherData ? weatherData?.wind?.speed : "0"} m/s</span>
                 </InfoBox>
             </InfoScreen>
             <RespScreen>
-                <span>Não, você não deve levar um casaquinho.</span>
+                {weatherData?.main?.temp_min > 17 ? <span> Não, você não deve levar um casaquinho!</span> : <span>Sim, você deve levar um casaquinho!</span>}
             </RespScreen>
         </ScreenContainer>
     )

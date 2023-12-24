@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 import casaquinho from "../../assets/casaco.png";
 import { RiSearch2Line } from "react-icons/ri";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch"
@@ -9,15 +9,15 @@ import dayjs from "dayjs";
 export default function Menu() {
     const [isChecked, setIsChecked] = useState(false)
     const [isDarkMode, setIsDarkMode] = useState(false)
-    const {weatherData, setWeatherData, setCity} = useContext(WeatherContext)
+    const { weatherData, setWeatherData, setCity } = useContext(WeatherContext)
     const [icon, setIcon] = useState(weatherData?.weather[0]?.icon)
     const [cityName, setCityName] = useState({
         city: ''
-      })
+    })
 
     useEffect(() => {
         setIcon(weatherData?.weather[0]?.icon)
-      }, [weatherData])
+    }, [weatherData])
 
     const handleCheck = () => {
         setIsChecked((prevState) => !prevState)
@@ -26,8 +26,8 @@ export default function Menu() {
         setIsDarkMode((prevState) => !prevState)
     }
 
-    function weekday(){
-        switch(dayjs().format('dddd')){
+    function weekday() {
+        switch (dayjs().format('dddd')) {
             case 'Sunday':
                 return 'Domingo'
             case 'Monday':
@@ -56,65 +56,65 @@ export default function Menu() {
     function handleSubmit(event) {
         event.preventDefault();
         if (!cityName.city) {
-          return
+            return
         }
         setCity(cityName.city)
-      }
-    
+    }
+
     return (
         <ScreenContainer>
-            {weatherData? 
-            <BoxContainer>
-            <BoxTitle>
-                <img src={casaquinho} alt="Casaquinho" />
-                <div>
-                    <h1>Levo um casaquinho?</h1>
-                </div>
-            </BoxTitle>
-            <BoxInput>
-                <StyledForm onSubmit={(event) => handleSubmit(event)}>
-                    <Icone />
-                    <StyledInput 
-                        type="text" 
-                        placeholder="Digite uma cidade"
-                        name="city" 
-                        value={cityName.city}
-                        onChange={(event) => handleChange(event)}
-                    />
-                </StyledForm>
-            </BoxInput>
-            <BoxTemperatura>
-                <div>
-                    <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="Descrição do céu" />
-                    <span>{weatherData?.main?.temp.toFixed(0)}ºC</span>
-                </div>
-                <div>
-                    <h1>{weatherData?.weather[0]?.description.charAt(0).toUpperCase() + weatherData?.weather[0]?.description.slice(1)}</h1>
-                </div>
-                <Barra />
-            </BoxTemperatura>
-            <BoxDia>
-                <span>{dayjs().format('DD/MM/YYYY')}</span>
-                <span>{weekday()}, {dayjs().format("hh:mm")}</span>
-            </BoxDia>
-            <BoxModos>
-                <div>
-                    <ToggleSwitch isChecked={isChecked} onClick={handleCheck} />
-                    <span>{isChecked ? "ºF" : "ºC"}</span>
-                </div>
-                <div>
-                    <ToggleSwitch isDarkMode={isDarkMode} onClick={handleDarkMode} />
-                    <span>{isDarkMode ? "Light Mode" : "Dark Mode"}</span>
-                </div>
-            </BoxModos>
-            <BoxTexto>
-                <h1>Criado pro Renato Ferreira. 2023</h1>
-            </BoxTexto>
-        </BoxContainer>
-        :
-        <>
-        <h1>Carregando...</h1>
-        </>}
+            {weatherData ?
+                <BoxContainer>
+                    <BoxTitle>
+                        <img src={casaquinho} alt="Casaquinho" />
+                        <div>
+                            <h1>Levo um casaquinho?</h1>
+                        </div>
+                    </BoxTitle>
+                    <BoxInput>
+                        <StyledForm onSubmit={(event) => handleSubmit(event)}>
+                            <Icone />
+                            <StyledInput
+                                type="text"
+                                placeholder="Digite uma cidade"
+                                name="city"
+                                value={cityName.city}
+                                onChange={(event) => handleChange(event)}
+                            />
+                        </StyledForm>
+                    </BoxInput>
+                    <BoxTemperatura>
+                        <div>
+                            <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="Descrição do céu" />
+                            <span>{weatherData?.main?.temp.toFixed(0)}ºC</span>
+                        </div>
+                        <div>
+                            <h1>{weatherData?.weather[0]?.description.charAt(0).toUpperCase() + weatherData?.weather[0]?.description.slice(1)}</h1>
+                        </div>
+                        <Barra />
+                    </BoxTemperatura>
+                    <BoxDia>
+                        <span>{dayjs().format('DD/MM/YYYY')}</span>
+                        <span>{weekday()}, {dayjs().format("hh:mm")}</span>
+                    </BoxDia>
+                    <BoxModos>
+                        <div>
+                            <ToggleSwitch isChecked={isChecked} onClick={handleCheck} />
+                            <span>{isChecked ? "ºF" : "ºC"}</span>
+                        </div>
+                        <div>
+                            <ToggleSwitch isDarkMode={isDarkMode} onClick={handleDarkMode} />
+                            <span>{isDarkMode ? "Light Mode" : "Dark Mode"}</span>
+                        </div>
+                    </BoxModos>
+                    <BoxTexto>
+                        <h1>Criado pro Renato Ferreira. 2023</h1>
+                    </BoxTexto>
+                </BoxContainer>
+                :
+                <>
+                    <h1>Carregando...</h1>
+                </>}
         </ScreenContainer>
     )
 }
