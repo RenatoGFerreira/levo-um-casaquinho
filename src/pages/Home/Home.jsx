@@ -1,9 +1,13 @@
 import styled from "styled-components";
 import Menu from "../../components/Menu/Menu"
-import { useState } from "react";
+import Hoje from "../Hoje/Hoje";
+import { useState, useContext } from "react";
+import { WeatherContext } from "../../context/WeatherContext";
 
 export default function Home() {
     const [showMenu, setShowMenu] = useState(false)
+    const {weatherData, setWeatherData} = useContext(WeatherContext)
+
     return (
         <ScreenContainer>
             <Menu showMenu={showMenu} setShowMenu={setShowMenu} />
@@ -14,37 +18,20 @@ export default function Home() {
                         <span>Próximos Dias</span>
                     </SubMenuScreen>
                     <CityScreen>
-                        <h1>Nome da Cidade</h1>
-                        <span>Latitude: XX.XX</span>
-                        <span>Longitude: XX.XX</span>
+                        <h1>{weatherData?.name}</h1>
+                        <span>Latitude: {weatherData?.coord?.lat}</span>
+                        <span>Longitude: {weatherData?.coord?.lon}</span>
                     </CityScreen>
                 </BoxTop>
                 <BoxMiddle>
-                    <InfoScreen>
-                        <InfoBox>
-                            <h1>Mínima</h1>
-                            <span>XXºc</span>
-                        </InfoBox>
-                        <InfoBox>
-                            <h1>Máxima</h1>
-                            <span>XXºc</span>
-                        </InfoBox>
-                        <InfoBox>
-                            <h1>Umidade</h1>
-                            <span>XX%</span>
-                        </InfoBox>
-                        <InfoBox>
-                            <h1>Velocidade do Vento</h1>
-                            <span>XX m/s</span>
-                        </InfoBox>
-                    </InfoScreen>
+                    <Hoje weatherData={weatherData}/>
                     <RespScreen>
                         <span>Não, você não deve levar um casaquinho.</span>
                     </RespScreen>
                 </BoxMiddle>
                 <BoxBotton>
                     <TextScreen>
-                        <span>Dados Fornecidos pela Open Weather API</span>
+                        <span>Dados Fornecidos pela <a target="_blank" href="https://openweathermap.org/api">Open Weather API</a></span>
                     </TextScreen>
                 </BoxBotton>
             </BoxScreen>
@@ -63,13 +50,10 @@ const BoxScreen = styled.div`
     justify-content: space-between;
 `
 const BoxTop = styled.div`
-    border: 1px solid blue;
 `
 const BoxMiddle = styled.div`
-    border: 1px solid blue;
 `
 const BoxBotton = styled.div`
-    border: 1px solid blue;
 `
 const SubMenuScreen = styled.div`
     display: flex;
@@ -93,15 +77,26 @@ const CityScreen = styled.div`
         margin-left: 55px;
     }
 `
-const InfoScreen = styled.div`
-    border: 1px solid red;
-`
-const InfoBox = styled.div`
-    border: 1px solid red;
-`
 const RespScreen = styled.div`
-    border: 1px solid red;
+    margin-top: 15px;
+    padding-left: 50px;
+    color: #AFADAD;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 48px;
+    margin-bottom: 50px;
 `
-const TextScreen = styled.div`
-    border: 1px solid red;
-`
+const TextScreen = styled.p`
+    &>span{
+        padding-left: 50px;
+        margin-bottom: auto;
+        color: #222;
+        font-family: Poppins;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 48px;
+    }
+`;
