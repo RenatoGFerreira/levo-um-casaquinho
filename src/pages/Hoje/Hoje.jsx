@@ -1,31 +1,35 @@
 import styled from "styled-components"
 
-export default function Hoje({weatherData}){
-    console.log(weatherData?.main?.temp_max.toFixed(0))
-    console.log(weatherData?.main?.temp_min.toFixed(0))
-
+export default function Hoje({ weatherData }) {
     return (
-        <InfoScreen>
-            <InfoBox>
-                <h1>Mínima</h1>
-                <span>{weatherData?.main?.temp_min.toFixed(0)}º c</span>
-            </InfoBox>
-            <InfoBox>
-                <h1>Máxima</h1>
-                <span>{weatherData?.main?.temp_max.toFixed(0)}º c</span>
-            </InfoBox>
-            <InfoBox>
-                <h1>Umidade</h1>
-                <span>{weatherData?.main?.humidity}%</span>
-            </InfoBox>
-            <InfoBox>
-                <h1>Velocidade do Vento</h1>
-                <span>{weatherData?.wind?.speed} m/s</span>
-            </InfoBox>
-        </InfoScreen>
+        <ScreenContainer>
+            <InfoScreen>
+                <InfoBox>
+                    <h1>Mínima</h1>
+                    <span>{weatherData?.main?.temp_min.toFixed(0)}º c</span>
+                </InfoBox>
+                <InfoBox>
+                    <h1>Máxima</h1>
+                    <span>{weatherData?.main?.temp_max.toFixed(0)}º c</span>
+                </InfoBox>
+                <InfoBox>
+                    <h1>Umidade</h1>
+                    <span>{weatherData?.main?.humidity}%</span>
+                </InfoBox>
+                <InfoBox>
+                    <h1>Velocidade do Vento</h1>
+                    <span>{weatherData?.wind?.speed} m/s</span>
+                </InfoBox>
+            </InfoScreen>
+            <RespScreen>
+                <span>Não, você não deve levar um casaquinho.</span>
+            </RespScreen>
+        </ScreenContainer>
     )
 }
+const ScreenContainer = styled.div`
 
+`
 const InfoScreen = styled.div`
     padding: 20px;
     display: flex;
@@ -60,7 +64,7 @@ const InfoBox = styled.div`
         margin-top: 2%;
         margin-left: 15%;
     }
-    @media (max-width: 1650px) {
+    @media (max-width: 1600px) {
         width: 300px;
         height: 108px;
         text-align: center;
@@ -73,5 +77,23 @@ const InfoBox = styled.div`
             font-size: 30px;
             margin-left: 0;
         }
+    }
+`
+const RespScreen = styled.div`
+    margin-top: 15px;
+    padding-left: 50px;
+    color: #AFADAD;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 48px;
+    margin-bottom: 50px;
+    @media (max-width: 1600px) {
+        display: flex;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 600;
+        color: #000;
     }
 `

@@ -25,9 +25,6 @@ export default function Home() {
                 </BoxTop>
                 <BoxMiddle>
                     <Hoje weatherData={weatherData}/>
-                    <RespScreen>
-                        <span>Não, você não deve levar um casaquinho.</span>
-                    </RespScreen>
                 </BoxMiddle>
                 <BoxBotton>
                     <TextScreen>
@@ -42,18 +39,22 @@ export default function Home() {
 const ScreenContainer = styled.div`
     display: flex;
     flex-direction: row;
-    @media (max-width: 1000px) {
-        transform: translateX(-340px);
+    @media (max-width: 1600px) {
+        flex-direction: column;
     }
+
 `
 const BoxScreen = styled.div`
     width: 67%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    @media (max-width: 1600px) {
+        width: 100%;
+    }
 `
 const BoxTop = styled.div`
-    @media (max-width: 1650px) {
+    @media (max-width: 1600px) {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -70,7 +71,7 @@ const SubMenuScreen = styled.div`
         margin-top: 50px;
         margin-left: 50px;
     }
-    @media (max-width: 1650px) {
+    @media (max-width: 1600px) {
         &>span{
             font-size: 30px;
         }
@@ -89,33 +90,22 @@ const CityScreen = styled.div`
         margin: 0 25px;
         margin-left: 55px;
     }
-    @media (max-width: 1650px) {
+    @media (max-width: 1600px) {
         display: flex;
         flex-direction: column;
         align-items: center;
         &>h1{
             font-size: 50px;
+            text-align: center;
+            margin-bottom: 20px;
         }
         &>span{
           width: 200px;
+          margin-bottom: 6px;
         }
     }
 `
-const RespScreen = styled.div`
-    margin-top: 15px;
-    padding-left: 50px;
-    color: #AFADAD;
-    font-family: Poppins;
-    font-size: 24px;
-    font-style: italic;
-    font-weight: 400;
-    line-height: 48px;
-    margin-bottom: 50px;
-    @media (max-width: 1650px) {
-        display: flex;
-        justify-content: center;
-    }
-`
+
 const TextScreen = styled.p`
     &>span{
         padding-left: 50px;
@@ -126,10 +116,11 @@ const TextScreen = styled.p`
         font-style: normal;
         font-weight: 400;
         line-height: 48px;
-
-        @media (max-width: 1650px) {
+        @media (max-width: 1600px) {
             display: flex;
             justify-content: center;
+            font-size: 16px;
+            color: #afafad;
         }
     }
 

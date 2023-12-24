@@ -2,13 +2,13 @@ import { useContext, useState, useEffect } from "react";
 import styled, {css} from "styled-components";
 import casaquinho from "../../assets/casaco.png";
 import { RiSearch2Line } from "react-icons/ri";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch"
 import { WeatherContext } from "../../context/WeatherContext";
 import dayjs from "dayjs";
 
 export default function Menu({setShowMenu, showMenu}) {
     const [isChecked, setIsChecked] = useState(false)
+    const [isDarkMode, setIsDarkMode] = useState(false)
     const {weatherData, setWeatherData} = useContext(WeatherContext)
     const [icon, setIcon] = useState(weatherData?.weather[0]?.icon)
 
@@ -20,9 +20,8 @@ export default function Menu({setShowMenu, showMenu}) {
     const handleCheck = () => {
         setIsChecked((prevState) => !prevState)
     }
-
-    const handleMenu = () => {
-        setShowMenu((prevState) => !prevState)
+    const handleDarkMode = () => {
+        setIsDarkMode((prevState) => !prevState)
     }
 
     function weekday(){
@@ -48,7 +47,6 @@ export default function Menu({setShowMenu, showMenu}) {
     
     return (
         <ScreenContainer>
-            {showMenu ?  <IconeSeta2 onClick={handleMenu} /> : <IconeSeta onClick={handleMenu} /> }
             {weatherData? 
             <BoxContainer>
             <BoxTitle>
@@ -83,8 +81,8 @@ export default function Menu({setShowMenu, showMenu}) {
                     <span>{isChecked ? "ºF" : "ºC"}</span>
                 </div>
                 <div>
-                    <ToggleSwitch />
-                    <span>Dark Mode</span>
+                    <ToggleSwitch isDarkMode={isDarkMode} onClick={handleDarkMode} />
+                    <span>{isDarkMode ? "Light Mode" : "Dark Mode"}</span>
                 </div>
             </BoxModos>
             <BoxTexto>
@@ -110,37 +108,9 @@ export const ScreenContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: row-reverse;
-    @media (max-width: 1000px) {
-        transform: ${showMenu => showMenu ?  "translateX(-340px)" : "translateX(-0px)"};
-        transition: transform .3s ease-in;
-        display: block;
-        width: 380px;
-        box-shadow: 2px 2px 5px #cecece;
-    }
-`
-export const IconeSeta = styled(IoIosArrowForward)`
-    font-size: 50px;
-    position: absolute;
-    display: none;
-    top: 0;
-    right: 0;
-    @media (max-width: 1000px) {
-            display: block;
-            color: #cecece;
-            z-index: 5;
-        }
-`
-export const IconeSeta2 = styled(IoIosArrowBack)`
-    font-size: 50px;
-    position: absolute;
-    display: none;
-    top: 0;
-    right: 0;
-    @media (max-width: 1000px) {
-            display: block;
-            color: #cecece;
-            z-index: 5;
-        }
+    @media (max-width: 1600px) {
+        width: 100%;
+    }  
 `
 export const BoxContainer = styled.div`
     display: flex;
@@ -154,15 +124,14 @@ export const BoxContainer = styled.div`
 export const BoxTitle = styled.div`
     background: none;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     margin-top: .2rem;
     &>img{
         background: none;
     }
     &>div{
         background: none;
-        display: flex;
         width: 60%;
     }
     &>div>h1{
@@ -170,16 +139,22 @@ export const BoxTitle = styled.div`
         font-weight: 600;
         font-size: 60px;
         background: none;
+        @media (max-width: 1775px) {
+            font-size: 50px;
+        }
     }
-    @media (max-width: 1650px) {
+    @media (max-width: 1600px) {
         flex-direction: column;
         &>img{
             width: 90px;
         }
         &>div{
            width: 100%;
+           display: flex;
+           justify-content: center;
         }
         &>div>h1{
+            display: block;
             margin-top: .2rem;
             display: flex;
             text-align: center;
@@ -230,7 +205,7 @@ export const StyledInput = styled.input`
 export const Icone = styled(RiSearch2Line)`
     font-size: 25pt;
     font-weight: 100;
-    color: #8b9caf;
+    color: #8b9caf
 `
 export const BoxTemperatura = styled.div`
     background: none;
@@ -260,7 +235,7 @@ export const BoxTemperatura = styled.div`
             letter-spacing: 3px;
         }
     }
-    @media (max-width: 1650px){
+    @media (max-width: 1600px){
         &>div{
             flex-direction: column;
             &>span{
@@ -276,9 +251,11 @@ export const Barra = styled.div`
     border: 2px solid #ededed;
     margin-top: 20px;
     width: 80%;
+    @media (max-width: 992px) {
+        margin-top: 5px;
+    }
 `
 export const BoxDia = styled.div`
-
     background: none;
     display: flex;
     flex-direction: column;
@@ -291,15 +268,15 @@ export const BoxDia = styled.div`
         font-size: 26px;
         padding: 5px;
     }
-    @media (max-width: 1650px){
+    @media (max-width: 1600px){
         flex-direction: row;
         &>span{
             margin: 0 5px;
             font-size: 21px;
             text-align: center;
-
         }
     }
+    
 `
 export const BoxModos = styled.div`
     background: none;
@@ -316,20 +293,21 @@ export const BoxModos = styled.div`
         min-width: 270px;
         margin: .2rem;
         &>span{
-            margin-left: .2rem;
+            margin-left: .6rem;
             background: #fff;
             font-size: 26px;
         }
     } 
-    @media (max-width: 1650px){
-        &>div{  
+    @media (max-width: 1600px){
+        &>div{ 
+            justify-content: center;
             &>span{
                 font-size: 21px;
                 margin-left: 15px;
                 min-width: 120px;
                 display: block;
             }
-    }
+        }
     } 
  
 `
@@ -345,7 +323,7 @@ export const BoxTexto = styled.div`
         margin-bottom: .2rem;
     }
 
-    @media (max-width: 1650px){
+    @media (max-width: 1600px){
         &>h1{
             font-size: 16px;
             text-align: center;
