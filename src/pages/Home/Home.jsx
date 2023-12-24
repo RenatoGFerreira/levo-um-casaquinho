@@ -31,7 +31,7 @@ export default function Home() {
                 </BoxMiddle>
                 <BoxBotton>
                     <TextScreen>
-                        <span>Dados Fornecidos pela <a target="_blank" href="https://openweathermap.org/api">Open Weather API</a></span>
+                        <span>Dados Fornecidos pela: <a target="_blank" href="https://openweathermap.org/api"> Open Weather API</a></span>
                     </TextScreen>
                 </BoxBotton>
             </BoxScreen>
@@ -42,6 +42,9 @@ export default function Home() {
 const ScreenContainer = styled.div`
     display: flex;
     flex-direction: row;
+    @media (max-width: 1000px) {
+        transform: translateX(-340px);
+    }
 `
 const BoxScreen = styled.div`
     width: 67%;
@@ -50,6 +53,11 @@ const BoxScreen = styled.div`
     justify-content: space-between;
 `
 const BoxTop = styled.div`
+    @media (max-width: 1650px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 `
 const BoxMiddle = styled.div`
 `
@@ -62,6 +70,11 @@ const SubMenuScreen = styled.div`
         margin-top: 50px;
         margin-left: 50px;
     }
+    @media (max-width: 1650px) {
+        &>span{
+            font-size: 30px;
+        }
+}
 `
 const CityScreen = styled.div`
     &>h1{
@@ -76,6 +89,17 @@ const CityScreen = styled.div`
         margin: 0 25px;
         margin-left: 55px;
     }
+    @media (max-width: 1650px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        &>h1{
+            font-size: 50px;
+        }
+        &>span{
+          width: 200px;
+        }
+    }
 `
 const RespScreen = styled.div`
     margin-top: 15px;
@@ -87,6 +111,10 @@ const RespScreen = styled.div`
     font-weight: 400;
     line-height: 48px;
     margin-bottom: 50px;
+    @media (max-width: 1650px) {
+        display: flex;
+        justify-content: center;
+    }
 `
 const TextScreen = styled.p`
     &>span{
@@ -98,5 +126,11 @@ const TextScreen = styled.p`
         font-style: normal;
         font-weight: 400;
         line-height: 48px;
+
+        @media (max-width: 1650px) {
+            display: flex;
+            justify-content: center;
+        }
     }
+
 `;

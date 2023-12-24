@@ -60,4 +60,18 @@ const InfoBox = styled.div`
         margin-top: 2%;
         margin-left: 15%;
     }
+    @media (max-width: 1650px) {
+        width: 300px;
+        height: 108px;
+        text-align: center;
+        margin-top: 5px;
+        &>h1{
+            font-size: 16px;
+            margin: 0;
+        }
+        &>span{
+            font-size: 30px;
+            margin-left: 0;
+        }
+    }
 `
