@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import styled, {css} from "styled-components";
 import casaquinho from "../../assets/casaco.png";
-import Sol from "../../assets/sol.png"
 import { RiSearch2Line } from "react-icons/ri";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch"
@@ -11,8 +10,8 @@ import dayjs from "dayjs";
 export default function Menu({setShowMenu, showMenu}) {
     const [isChecked, setIsChecked] = useState(false)
     const {weatherData, setWeatherData} = useContext(WeatherContext)
-
     const [icon, setIcon] = useState(weatherData?.weather[0]?.icon)
+
     useEffect(() => {
         setIcon(weatherData?.weather[0]?.icon)
       }, [weatherData])
@@ -101,6 +100,7 @@ export default function Menu({setShowMenu, showMenu}) {
 }
 
 export const ScreenContainer = styled.div`
+    z-index: 1;
     box-sizing: border-box;
     background-color: #fff;
     box-shadow: 5px 5px 5px #cecece ;
