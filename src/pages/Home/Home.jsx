@@ -3,28 +3,39 @@ import Menu from "../../components/Menu/Menu"
 import Hoje from "../Hoje/Hoje";
 import { useState, useContext } from "react";
 import { WeatherContext } from "../../context/WeatherContext";
+import ProximosDias from "../ProximosDIas/ProximosDias";
 
 export default function Home() {
-    const [showMenu, setShowMenu] = useState(false)
     const {weatherData, setWeatherData} = useContext(WeatherContext)
+    const [today, setToday] = useState(true)
+    const [nextDays, setNextDays] = useState(false)
+
+    function selectToday(){
+        setToday(true)
+        setNextDays(false)
+    }
+    function selectNextDays(){
+        setToday(false)
+        setNextDays(true)
+    }
 
     return (
         <ScreenContainer>
-            <Menu showMenu={showMenu} setShowMenu={setShowMenu} />
+            <Menu/>
             <BoxScreen>
                 <BoxTop>
                     <SubMenuScreen>
-                        <span>Hoje</span>
-                        <span>Próximos Dias</span>
+                        <span onClick={selectToday}>Hoje</span>
+                        <span onClick={selectNextDays}>Próximos Dias</span>
                     </SubMenuScreen>
                     <CityScreen>
-                        <h1>{weatherData?.name}</h1>
-                        <span>Latitude: {weatherData?.coord?.lat}</span>
-                        <span>Longitude: {weatherData?.coord?.lon}</span>
+                        <h1>{weatherData? weatherData?.name : "Carregando..."}</h1>
+                        <span>Latitude: {weatherData? weatherData?.coord?.lat : "Carregando..."}</span>
+                        <span>Longitude: {weatherData? weatherData?.coord?.lon : "Carregando..."}</span>
                     </CityScreen>
                 </BoxTop>
                 <BoxMiddle>
-                    <Hoje weatherData={weatherData}/>
+                    {today ? <Hoje weatherData={weatherData}/> : <ProximosDias/>}
                 </BoxMiddle>
                 <BoxBotton>
                     <TextScreen>
@@ -70,6 +81,7 @@ const SubMenuScreen = styled.div`
         font-size: 40px;
         margin-top: 50px;
         margin-left: 50px;
+        cursor: pointer;
     }
     @media (max-width: 1600px) {
         &>span{

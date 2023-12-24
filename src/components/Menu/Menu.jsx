@@ -6,7 +6,7 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch"
 import { WeatherContext } from "../../context/WeatherContext";
 import dayjs from "dayjs";
 
-export default function Menu({setShowMenu, showMenu}) {
+export default function Menu() {
     const [isChecked, setIsChecked] = useState(false)
     const [isDarkMode, setIsDarkMode] = useState(false)
     const {weatherData, setWeatherData, setCity} = useContext(WeatherContext)

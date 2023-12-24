@@ -6,19 +6,19 @@ export default function Hoje({ weatherData }) {
             <InfoScreen>
                 <InfoBox>
                     <h1>Mínima</h1>
-                    <span>{weatherData?.main?.temp_min.toFixed(0)}º c</span>
+                    <span>{weatherData ? weatherData?.main?.temp_min.toFixed(0) : "0"}º c</span>
                 </InfoBox>
                 <InfoBox>
                     <h1>Máxima</h1>
-                    <span>{weatherData?.main?.temp_max.toFixed(0)}º c</span>
+                    <span>{weatherData ? weatherData?.main?.temp_max.toFixed(0) : "0"}º c</span>
                 </InfoBox>
                 <InfoBox>
                     <h1>Umidade</h1>
-                    <span>{weatherData?.main?.humidity}%</span>
+                    <span>{weatherData ? weatherData?.main?.humidity : "0"}%</span>
                 </InfoBox>
                 <InfoBox>
                     <h1>Velocidade do Vento</h1>
-                    <span>{weatherData?.wind?.speed} m/s</span>
+                    <span>{weatherData? weatherData?.wind?.speed : "0"} m/s</span>
                 </InfoBox>
             </InfoScreen>
             <RespScreen>
