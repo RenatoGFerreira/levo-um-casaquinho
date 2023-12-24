@@ -7,8 +7,6 @@ export const WeatherProvider = ({children}) => {
     const [weatherData, setWeatherData] = useState(null)
     const [city, setCity] = useState(import.meta.env.VITE_CITY_BASE)
 
-    console.log(weatherData)
-
     const getWeatherData = async() => {
         const urlTodayAPI = `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=pt_br&APPID=${import.meta.env.VITE_API_KEY}&units=metric`
         await axios.get(urlTodayAPI)
@@ -19,7 +17,6 @@ export const WeatherProvider = ({children}) => {
             console.log(error)
         })
     }
-
 
     useEffect(()=>{
         getWeatherData()

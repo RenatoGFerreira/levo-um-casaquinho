@@ -1,10 +1,9 @@
-import Hoje from "../Hoje/Hoje";
+import Menu from "../../components/Menu/Menu"
 import { useState } from "react";
 
 export default function Home(){
     const [showMenu, setShowMenu] = useState(false)
-
     return (
-        <Hoje/>
+        <Menu showMenu={showMenu} setShowMenu={setShowMenu}/>
     )
 }

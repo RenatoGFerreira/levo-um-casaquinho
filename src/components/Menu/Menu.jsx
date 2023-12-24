@@ -1,17 +1,23 @@
+import { useContext, useState, useEffect } from "react";
 import styled, {css} from "styled-components";
 import casaquinho from "../../assets/casaco.png";
 import Sol from "../../assets/sol.png"
 import { RiSearch2Line } from "react-icons/ri";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import { useState } from "react";
-import ToggleSwitch from "../../components/ToggleSwitch"
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch"
+import { WeatherContext } from "../../context/WeatherContext";
+import dayjs from "dayjs";
 
-export default function Hoje() {
+export default function Menu({setShowMenu, showMenu}) {
     const [isChecked, setIsChecked] = useState(false)
-    const [showMenu, setShowMenu] = useState(false)
+    const {weatherData, setWeatherData} = useContext(WeatherContext)
 
-    console.log(showMenu)
+    const [icon, setIcon] = useState(weatherData?.weather[0]?.icon)
+    useEffect(() => {
+        setIcon(weatherData?.weather[0]?.icon)
+      }, [weatherData])
 
+    console.log(weatherData)
     const handleCheck = () => {
         setIsChecked((prevState) => !prevState)
     }
@@ -20,50 +26,76 @@ export default function Hoje() {
         setShowMenu((prevState) => !prevState)
     }
 
+    function weekday(){
+        switch(dayjs().format('dddd')){
+            case 'Sunday':
+                return 'Domingo'
+            case 'Monday':
+                return 'Segunda-Feira'
+            case 'Tuesday':
+                return 'Terça-Feira'
+            case 'Wednesday':
+                return 'Quarta-Feira'
+            case 'Thursday':
+                return 'Quinta-Feira'
+            case 'Friday':
+                return 'Sexta-Feira'
+            case 'Saturday':
+                return 'Sabado'
+            default:
+                return ''
+        }
+    }
+    
     return (
         <ScreenContainer>
-            {showMenu ?  <IconeSeta2 onClick={() => handleMenu()} /> : <IconeSeta onClick={() => handleMenu()} /> }
+            {showMenu ?  <IconeSeta2 onClick={handleMenu} /> : <IconeSeta onClick={handleMenu} /> }
+            {weatherData? 
             <BoxContainer>
-                <BoxTitle>
-                    <img src={casaquinho} alt="Casaquinho" />
-                    <div>
-                        <h1>Levo um casaquinho?</h1>
-                    </div>
-                </BoxTitle>
-                <BoxInput>
-                    <StyledForm>
-                        <Icone />
-                        <StyledInput type="text" placeholder="Digite uma cidade" />
-                    </StyledForm>
-                </BoxInput>
-                <BoxTemperatura>
-                    <div>
-                        <img src={Sol} alt="Sol" />
-                        <span>31ºC</span>
-                    </div>
-                    <div>
-                        <h1>Céu Aberto</h1>
-                    </div>
-                    <Barra />
-                </BoxTemperatura>
-                <BoxDia>
-                    <span>12/12/1212</span>
-                    <span>Quinta-Feira, 12:12</span>
-                </BoxDia>
-                <BoxModos>
-                    <div>
-                        <ToggleSwitch isChecked={isChecked} onClick={handleCheck} />
-                        <span>{isChecked ? "ºF" : "ºC"}</span>
-                    </div>
-                    <div>
-                        <ToggleSwitch />
-                        <span>Dark Mode</span>
-                    </div>
-                </BoxModos>
-                <BoxTexto>
-                    <h1>Criado pro Renato Ferreira. 2023</h1>
-                </BoxTexto>
-            </BoxContainer>
+            <BoxTitle>
+                <img src={casaquinho} alt="Casaquinho" />
+                <div>
+                    <h1>Levo um casaquinho?</h1>
+                </div>
+            </BoxTitle>
+            <BoxInput>
+                <StyledForm>
+                    <Icone />
+                    <StyledInput type="text" placeholder="Digite uma cidade" />
+                </StyledForm>
+            </BoxInput>
+            <BoxTemperatura>
+                <div>
+                    <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="Descrição do céu" />
+                    <span>{weatherData?.main?.temp.toFixed(0)}ºC</span>
+                </div>
+                <div>
+                    <h1>{weatherData?.weather[0]?.description.charAt(0).toUpperCase() + weatherData?.weather[0]?.description.slice(1)}</h1>
+                </div>
+                <Barra />
+            </BoxTemperatura>
+            <BoxDia>
+                <span>{dayjs().format('DD/MM/YYYY')}</span>
+                <span>{weekday()}, {dayjs().format("hh:mm")}</span>
+            </BoxDia>
+            <BoxModos>
+                <div>
+                    <ToggleSwitch isChecked={isChecked} onClick={handleCheck} />
+                    <span>{isChecked ? "ºF" : "ºC"}</span>
+                </div>
+                <div>
+                    <ToggleSwitch />
+                    <span>Dark Mode</span>
+                </div>
+            </BoxModos>
+            <BoxTexto>
+                <h1>Criado pro Renato Ferreira. 2023</h1>
+            </BoxTexto>
+        </BoxContainer>
+        :
+        <>
+        <h1>Carregando...</h1>
+        </>}
         </ScreenContainer>
     )
 }
@@ -79,13 +111,12 @@ export const ScreenContainer = styled.div`
     align-items: center;
     flex-direction: row-reverse;
     @media (max-width: 1000px) {
-            /* transform: ${showMenu => showMenu ?  "translateX(-340px)" : "transform:translateX(0px)"}; */
-            transform: translateX(-340px);
-            transition: transform .3s ease-in;
-            display: block;
-            width: 380px;
-            box-shadow: 2px 2px 5px #cecece;
-        }
+        transform: ${showMenu => showMenu ?  "translateX(-340px)" : "translateX(-0px)"};
+        transition: transform .3s ease-in;
+        display: block;
+        width: 380px;
+        box-shadow: 2px 2px 5px #cecece;
+    }
 `
 export const IconeSeta = styled(IoIosArrowForward)`
     font-size: 50px;
@@ -96,6 +127,7 @@ export const IconeSeta = styled(IoIosArrowForward)`
     @media (max-width: 1000px) {
             display: block;
             color: #cecece;
+            z-index: 5;
         }
 `
 export const IconeSeta2 = styled(IoIosArrowBack)`
@@ -107,6 +139,7 @@ export const IconeSeta2 = styled(IoIosArrowBack)`
     @media (max-width: 1000px) {
             display: block;
             color: #cecece;
+            z-index: 5;
         }
 `
 export const BoxContainer = styled.div`
