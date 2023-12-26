@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import casaquinho from "../../assets/casaco.png";
 import { RiSearch2Line } from "react-icons/ri";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch"
@@ -7,11 +7,11 @@ import { WeatherContext } from "../../context/WeatherContext";
 import dayjs from "dayjs";
 
 export default function Menu({isChecked, setIsChecked, isDarkMode, setIsDarkMode}) {
-    const { weatherData, setWeatherData, setCity } = useContext(WeatherContext)
+    const { weatherData, setCity } = useContext(WeatherContext)
     const [icon, setIcon] = useState(weatherData?.weather[0]?.icon)
-    const [cityName, setCityName] = useState({
-        city: ''
-    })
+    const [cityName, setCityName] = useState({city: ''})
+    const [mainColor, setMainColor] = useState('grey')
+  
 
     useEffect(() => {
         setIcon(weatherData?.weather[0]?.icon)
@@ -45,6 +45,30 @@ export default function Menu({isChecked, setIsChecked, isDarkMode, setIsDarkMode
         }
     }
 
+    function weather() {
+        switch (weatherData?.weather[0]?.main) {
+          case 'Clear':
+            return setMainColor('#ec6e4c');
+          case 'Clouds':
+            return setMainColor('#616161');
+          case 'Rain':
+            return setMainColor('#4B91E1');
+          case 'Snow':
+            return setMainColor('#A8A8A8');
+          case 'Thunderstorm':
+            return setMainColor('#AA00FF');
+          case 'Drizzle':
+            return setMainColor('#ACC5E6');
+          case 'Mist':
+            return setMainColor('#A8A8A8');
+          default:
+            return setMainColor('black');
+        }
+      }
+      useEffect(() => {
+        weather()
+      }, [weatherData])
+
     function handleChange(event) {
         const newCity = { ...cityName };
         newCity[event.target.name] = event.target.value;
@@ -71,7 +95,7 @@ export default function Menu({isChecked, setIsChecked, isDarkMode, setIsDarkMode
                     </BoxTitle>
                     <BoxInput>
                         <StyledForm onSubmit={(event) => handleSubmit(event)}>
-                            <Icone />
+                            <Icone onClick={(event) => handleSubmit(event)}/>
                             <StyledInput
                                 type="text"
                                 placeholder="Digite uma cidade"
@@ -84,7 +108,7 @@ export default function Menu({isChecked, setIsChecked, isDarkMode, setIsDarkMode
                     <BoxTemperatura>
                         <div>
                             <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="Descrição do céu" />
-                            <span>{isChecked? (weatherData?.main?.temp * 1.8 + 32).toFixed(0) + "° F" : weatherData?.main?.temp.toFixed(0) + "º C"}</span>
+                            <span style={{ color: mainColor }}>{isChecked? (weatherData?.main?.temp * 1.8 + 32).toFixed(0) + "° F" : weatherData?.main?.temp.toFixed(0) + "º C"}</span>
                         </div>
                         <div>
                             <h1>{weatherData?.weather[0]?.description.charAt(0).toUpperCase() + weatherData?.weather[0]?.description.slice(1)}</h1>
@@ -223,9 +247,11 @@ export const StyledInput = styled.input`
     }
 `
 export const Icone = styled(RiSearch2Line)`
+    cursor: pointer;
     font-size: 25pt;
     font-weight: 100;
-    color: #8b9caf
+    color: #8b9caf;
+    
 `
 export const BoxTemperatura = styled.div`
     background: none;
@@ -246,7 +272,6 @@ export const BoxTemperatura = styled.div`
         &>span{
             background: none;
             font-size: 70pt;
-            color: #ec6e4c;
         }
         &>h1{
             background: none;

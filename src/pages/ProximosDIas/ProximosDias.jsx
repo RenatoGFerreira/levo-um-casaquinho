@@ -1,21 +1,14 @@
 import styled from "styled-components"
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts"
 import dayjs from "dayjs"
-import { useEffect, useState } from "react"
-
 
 export default function ProximosDias({ nextDaysData, isChecked }) {
-    const [getWidth, setGetWidth] = useState(innerWidth - 800)
-    const { innerWidth: width, innerHeight: height } = window;
-
-    console.log(innerWidth)
-    console.log(innerHeight)
 
     return (
         <ScreenContainer>
             <LineChart
                 data={isChecked? nextDaysData?.map((item) => ({ ...item, Temperatura: (item.Temperatura * 1.8 + 32).toFixed(0)})) : nextDaysData}
-                width={getWidth}
+                width={1150}
                 height={500}
                 margin={{ top: 30, right: 10, left: 30, bottom: 10 }}
             >
@@ -47,7 +40,7 @@ export default function ProximosDias({ nextDaysData, isChecked }) {
 
 const ScreenContainer = styled.div`
     overflow-x: scroll;
-    overflow-y: hidden;
+    overflow-y: scroll;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
