@@ -6,8 +6,8 @@ import { WeatherContext } from "../../context/WeatherContext";
 import ProximosDias from "../ProximosDIas/ProximosDias";
 
 export default function Home() {
-    const { weatherData, setWeatherData } = useContext(WeatherContext)
-    const { nextDaysData, setNextDaysData } = useContext(WeatherContext)
+    const { weatherData } = useContext(WeatherContext)
+    const { nextDaysData } = useContext(WeatherContext)
     const [today, setToday] = useState(true)
     const [nextDays, setNextDays] = useState(false)
     const [isChecked, setIsChecked] = useState(false)
@@ -37,9 +37,9 @@ export default function Home() {
                         <span onClick={selectNextDays} style={{color: nextDays ? "#000": "#C8C8C8"}}>Próximos Dias</span>
                     </SubMenuScreen>
                     <CityScreen>
-                        <h1>{weatherData ? weatherData?.name : "Carregando..."}</h1>
-                        <span>Latitude: {weatherData ? weatherData?.coord?.lat : "Carregando..."}</span>
-                        <span>Longitude: {weatherData ? weatherData?.coord?.lon : "Carregando..."}</span>
+                        <h1>{weatherData ? weatherData?.name : <LoadingLine/>}</h1>
+                        <span>Latitude: {weatherData ? weatherData?.coord?.lat : 0}</span>
+                        <span>Longitude: {weatherData ? weatherData?.coord?.lon : 0}</span>
                     </CityScreen>
                 </BoxTop>
                 <BoxMiddle>
@@ -54,6 +54,43 @@ export default function Home() {
         </ScreenContainer>
     )
 }
+
+const LoadingLine = styled.div`
+    display: block;
+    --height-of-loader: 4px;
+    --loader-color: #cecece;
+    width: 330px;
+    height: var(--height-of-loader);
+    border-radius: 30px;
+    /* background-color: rgba(0,0,0,0.2); */
+    background-color: #fff;
+    border: 1px solid black;
+    margin: 55px;
+    &:before {
+        content: "";
+        position: absolute;
+        background: var(--loader-color);
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        border-radius: 30px;
+        animation: moving 1s ease-in-out infinite;
+        ;
+    }
+    @keyframes moving {
+        50% {
+            width: 100%;
+        }
+
+        100% {
+            width: 0;
+            right: 0;
+            left: unset;
+        }
+    }
+
+`
 
 const ScreenContainer = styled.div`
     display: flex;
@@ -130,7 +167,6 @@ const CityScreen = styled.div`
         }
     }
 `
-
 const TextScreen = styled.p`
     &>span{
         padding-left: 50px;

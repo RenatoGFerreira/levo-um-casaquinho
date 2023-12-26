@@ -27,6 +27,7 @@ export default function Hoje({ weatherData, isChecked }) {
         </ScreenContainer>
     )
 }
+
 const ScreenContainer = styled.div`
 
 `

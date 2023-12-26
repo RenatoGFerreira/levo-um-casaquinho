@@ -6,12 +6,12 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch"
 import { WeatherContext } from "../../context/WeatherContext";
 import dayjs from "dayjs";
 
-export default function Menu({isChecked, setIsChecked, isDarkMode, setIsDarkMode}) {
+export default function Menu({ isChecked, setIsChecked, isDarkMode, setIsDarkMode }) {
     const { weatherData, setCity } = useContext(WeatherContext)
     const [icon, setIcon] = useState(weatherData?.weather[0]?.icon)
-    const [cityName, setCityName] = useState({city: ''})
+    const [cityName, setCityName] = useState({ city: '' })
     const [mainColor, setMainColor] = useState('grey')
-  
+
 
     useEffect(() => {
         setIcon(weatherData?.weather[0]?.icon)
@@ -47,27 +47,27 @@ export default function Menu({isChecked, setIsChecked, isDarkMode, setIsDarkMode
 
     function weather() {
         switch (weatherData?.weather[0]?.main) {
-          case 'Clear':
-            return setMainColor('#ec6e4c');
-          case 'Clouds':
-            return setMainColor('#616161');
-          case 'Rain':
-            return setMainColor('#4B91E1');
-          case 'Snow':
-            return setMainColor('#A8A8A8');
-          case 'Thunderstorm':
-            return setMainColor('#AA00FF');
-          case 'Drizzle':
-            return setMainColor('#ACC5E6');
-          case 'Mist':
-            return setMainColor('#A8A8A8');
-          default:
-            return setMainColor('black');
+            case 'Clear':
+                return setMainColor('#ec6e4c');
+            case 'Clouds':
+                return setMainColor('#616161');
+            case 'Rain':
+                return setMainColor('#4B91E1');
+            case 'Snow':
+                return setMainColor('#A8A8A8');
+            case 'Thunderstorm':
+                return setMainColor('#AA00FF');
+            case 'Drizzle':
+                return setMainColor('#ACC5E6');
+            case 'Mist':
+                return setMainColor('#A8A8A8');
+            default:
+                return setMainColor('black');
         }
-      }
-      useEffect(() => {
+    }
+    useEffect(() => {
         weather()
-      }, [weatherData])
+    }, [weatherData])
 
     function handleChange(event) {
         const newCity = { ...cityName };
@@ -85,7 +85,6 @@ export default function Menu({isChecked, setIsChecked, isDarkMode, setIsDarkMode
 
     return (
         <ScreenContainer>
-            {weatherData ?
                 <BoxContainer>
                     <BoxTitle>
                         <img src={casaquinho} alt="Casaquinho" />
@@ -95,7 +94,7 @@ export default function Menu({isChecked, setIsChecked, isDarkMode, setIsDarkMode
                     </BoxTitle>
                     <BoxInput>
                         <StyledForm onSubmit={(event) => handleSubmit(event)}>
-                            <Icone onClick={(event) => handleSubmit(event)}/>
+                            <Icone onClick={(event) => handleSubmit(event)} />
                             <StyledInput
                                 type="text"
                                 placeholder="Digite uma cidade"
@@ -106,13 +105,19 @@ export default function Menu({isChecked, setIsChecked, isDarkMode, setIsDarkMode
                         </StyledForm>
                     </BoxInput>
                     <BoxTemperatura>
-                        <div>
-                            <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="Descrição do céu" />
-                            <span style={{ color: mainColor }}>{isChecked? (weatherData?.main?.temp * 1.8 + 32).toFixed(0) + "° F" : weatherData?.main?.temp.toFixed(0) + "º C"}</span>
-                        </div>
-                        <div>
-                            <h1>{weatherData?.weather[0]?.description.charAt(0).toUpperCase() + weatherData?.weather[0]?.description.slice(1)}</h1>
-                        </div>
+                        {weatherData ?
+                            <>
+                                <div>
+                                    <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="Descrição do céu" />
+                                    <span style={{ color: mainColor }}>{isChecked ? (weatherData?.main?.temp * 1.8 + 32).toFixed(0) + "° F" : weatherData?.main?.temp.toFixed(0) + "º C"}</span>
+                                </div>
+                                <div>
+                                    <h1>{weatherData?.weather[0]?.description.charAt(0).toUpperCase() + weatherData?.weather[0]?.description.slice(1)}</h1>
+                                </div>
+                            </>
+                            : (
+                                <LoadingCircle />
+                            )}
                         <Barra />
                     </BoxTemperatura>
                     <BoxDia>
@@ -126,20 +131,41 @@ export default function Menu({isChecked, setIsChecked, isDarkMode, setIsDarkMode
                         </div>
                         <div>
                             <ToggleSwitch isDarkMode={isDarkMode} onClick={handleDarkMode} />
-                            <span>{isDarkMode ? "Light Mode" : "Dark Mode"}</span>
+                            <span>{isDarkMode ?  "Dark Mode" : "Light Mode"}</span>
                         </div>
                     </BoxModos>
                     <BoxTexto>
                         <h1>Criado pro Renato Ferreira. 2023</h1>
                     </BoxTexto>
                 </BoxContainer>
-                :
-                <>
-                    <h1>Carregando...</h1>
-                </>}
         </ScreenContainer>
     )
 }
+
+export const LoadingCircle = styled.div`
+    width: 60px;
+    height: 60px;
+    background: none;
+    margin: 35px;
+    &:before {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border-top: 2px solid #cecece;
+        border-right: 2px solid transparent;
+        animation: spinner 0.8s linear infinite;
+    }   
+
+    @keyframes spinner {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+`
 
 export const ScreenContainer = styled.div`
     z-index: 1;
