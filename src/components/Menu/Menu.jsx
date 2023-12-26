@@ -6,9 +6,7 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch"
 import { WeatherContext } from "../../context/WeatherContext";
 import dayjs from "dayjs";
 
-export default function Menu() {
-    const [isChecked, setIsChecked] = useState(false)
-    const [isDarkMode, setIsDarkMode] = useState(false)
+export default function Menu({isChecked, setIsChecked, isDarkMode, setIsDarkMode}) {
     const { weatherData, setWeatherData, setCity } = useContext(WeatherContext)
     const [icon, setIcon] = useState(weatherData?.weather[0]?.icon)
     const [cityName, setCityName] = useState({
@@ -86,7 +84,7 @@ export default function Menu() {
                     <BoxTemperatura>
                         <div>
                             <img src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="Descrição do céu" />
-                            <span>{weatherData?.main?.temp.toFixed(0)}ºC</span>
+                            <span>{isChecked? (weatherData?.main?.temp * 1.8 + 32).toFixed(0) + "° F" : weatherData?.main?.temp.toFixed(0) + "º C"}</span>
                         </div>
                         <div>
                             <h1>{weatherData?.weather[0]?.description.charAt(0).toUpperCase() + weatherData?.weather[0]?.description.slice(1)}</h1>

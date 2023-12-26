@@ -1,16 +1,16 @@
 import styled from "styled-components"
 
-export default function Hoje({ weatherData }) {
+export default function Hoje({ weatherData, isChecked }) {
     return (
         <ScreenContainer>
             <InfoScreen>
                 <InfoBox>
                     <h1>Mínima</h1>
-                    <span>{weatherData ? weatherData?.main?.temp_min.toFixed(0) : "0"}º c</span>
+                    <span>{isChecked? (weatherData?.main?.temp * 1.8 + 32).toFixed(0) + "° F" : weatherData ? weatherData?.main?.temp_min.toFixed(0) + "º C" : "0"}</span>
                 </InfoBox>
                 <InfoBox>
                     <h1>Máxima</h1>
-                    <span>{weatherData ? weatherData?.main?.temp_max.toFixed(0) : "0"}º c</span>
+                    <span>{isChecked? (weatherData?.main?.temp * 1.8 + 32).toFixed(0) + "° F" : weatherData ? weatherData?.main?.temp_max.toFixed(0) + "º C" : "0"}</span>
                 </InfoBox>
                 <InfoBox>
                     <h1>Umidade</h1>

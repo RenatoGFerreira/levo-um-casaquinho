@@ -10,6 +10,8 @@ export default function Home() {
     const { nextDaysData, setNextDaysData } = useContext(WeatherContext)
     const [today, setToday] = useState(true)
     const [nextDays, setNextDays] = useState(false)
+    const [isChecked, setIsChecked] = useState(false)
+    const [isDarkMode, setIsDarkMode] = useState(false)
 
     function selectToday() {
         setToday(true)
@@ -22,7 +24,12 @@ export default function Home() {
 
     return (
         <ScreenContainer>
-            <Menu />
+            <Menu 
+                isDarkMode={isDarkMode} 
+                setIsDarkMode={setIsDarkMode}
+                isChecked={isChecked}
+                setIsChecked={setIsChecked}
+            />
             <BoxScreen>
                 <BoxTop>
                     <SubMenuScreen>
@@ -36,7 +43,7 @@ export default function Home() {
                     </CityScreen>
                 </BoxTop>
                 <BoxMiddle>
-                    {today ? <Hoje weatherData={weatherData} /> : <ProximosDias nextDaysData={nextDaysData}/>}
+                    {today ? <Hoje weatherData={weatherData} isChecked={isChecked}/> : <ProximosDias nextDaysData={nextDaysData} isChecked={isChecked}/>}
                 </BoxMiddle>
                 <BoxBotton>
                     <TextScreen>

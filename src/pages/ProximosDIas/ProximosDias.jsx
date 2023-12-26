@@ -4,13 +4,13 @@ import dayjs from "dayjs"
 import { useState } from "react"
 
 
-export default function ProximosDias({ nextDaysData }) {
+export default function ProximosDias({ nextDaysData, isChecked }) {
     const [getWidth, setGetWidht] = useState(1250)
 
     return (
         <ScreenContainer>
             <LineChart
-                data={nextDaysData}
+                data={isChecked? nextDaysData?.map((item) => ({ ...item, Temperatura: (item.Temperatura * 1.8 + 32).toFixed(0)})) : nextDaysData}
                 width={getWidth}
                 height={500}
                 margin={{ top: 30, right: 10, left: 30, bottom: 10 }}
@@ -31,7 +31,7 @@ export default function ProximosDias({ nextDaysData }) {
                 />
                 <YAxis
                     type="number"
-                    tickFormatter={(value) => `${(value)}º C`} 
+                    tickFormatter={isChecked ? (value) => `${(value)}º F` : (value) => `${(value)}º C`} 
                 />
                 <Tooltip
                     formatter={(value) => `${(value)}º C`}
