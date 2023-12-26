@@ -22,11 +22,46 @@ export default function Hoje({ weatherData, isChecked }) {
                 </InfoBox>
             </InfoScreen>
             <RespScreen>
-                {weatherData?.main?.temp_min > 17 ? <span> Não, você não deve levar um casaquinho!</span> : <span>Sim, você deve levar um casaquinho!</span>}
+                {weatherData? weatherData?.main?.temp_min > 17 ? <span> Não, você não deve levar um casaquinho!</span> : <span>Sim, você deve levar um casaquinho!</span> : <LoadingLine/>}
             </RespScreen>
         </ScreenContainer>
     )
 }
+
+const LoadingLine = styled.div`
+    display: block;
+    --height-of-loader: 4px;
+    --loader-color: #cecece;
+    width: 330px;
+    height: var(--height-of-loader);
+    border-radius: 30px;
+    background-color: #fff;
+    border: 1px solid black;
+    &:before {
+        content: "";
+        position: absolute;
+        background: var(--loader-color);
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        border-radius: 30px;
+        animation: moving 1s ease-in-out infinite;
+        ;
+    }
+    @keyframes moving {
+        50% {
+            width: 100%;
+        }
+
+        100% {
+            width: 0;
+            right: 0;
+            left: unset;
+        }
+    }
+
+`
 
 const ScreenContainer = styled.div`
 

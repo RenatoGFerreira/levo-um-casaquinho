@@ -62,7 +62,6 @@ const LoadingLine = styled.div`
     width: 330px;
     height: var(--height-of-loader);
     border-radius: 30px;
-    /* background-color: rgba(0,0,0,0.2); */
     background-color: #fff;
     border: 1px solid black;
     margin: 55px;
@@ -89,7 +88,6 @@ const LoadingLine = styled.div`
             left: unset;
         }
     }
-
 `
 
 const ScreenContainer = styled.div`
