@@ -1,6 +1,8 @@
 import axios from "axios";
 import dayjs from "dayjs";
 import { createContext, useEffect, useState } from "react";
+import Swal from 'sweetalert2'
+
 
 export const WeatherContext = createContext();
 
@@ -17,13 +19,33 @@ export const WeatherProvider = ({children}) => {
         })
         .catch((error) => {
             if (error.response.status === 404) {
-                alert("Por favor, confira o nome da cidade digitada.")
+                //alert("Por favor, confira o nome da cidade digitada.")
+                Swal.fire({
+                    title: "Cidade não encontrada!",
+                    text: "Por favor, confira o nome da cidade digitada.",
+                    icon: "warning"
+                  });
               } else if (error.response.status === 401 || error.response.status === 400) {
-                alert("Por favor, verifique as suas credenciais de acesso!")
+                //alert("Por favor, verifique as suas credenciais de acesso!")
+                Swal.fire({
+                    title: "404",
+                    text: "Por favor, verifique as suas credenciais de acesso!",
+                    icon: "warning"
+                  });
               } else if (error.response.status === 429) {
-                alert("Por favor, aguarde um tempo. A API está com muitas requisições!")
+                //alert("Por favor, aguarde um tempo. A API está com muitas requisições!")
+                Swal.fire({
+                    title: "429",
+                    text: "Por favor, aguarde um tempo. A API está com muitas requisições",
+                    icon: "warning"
+                  });
               } else {
-                alert("Algo de errado aconteceu! Tente novamente mais tarde.")
+                //alert("Algo de errado aconteceu! Tente novamente mais tarde.")
+                Swal.fire({
+                    title: "Algo deu errado!",
+                    text: "Por favor, tente mais tarde",
+                    icon: "warning"
+                  });
                 console.error(error);
             }
         })
@@ -46,7 +68,12 @@ export const WeatherProvider = ({children}) => {
             setNextDaysData(dataForecast)
         })
         .catch((error) => {
-            alert("Algo de errado aconteceu! Tente novamente mais tarde.")
+            //alert("Algo de errado aconteceu! Tente novamente mais tarde.")
+            Swal.fire({
+                title: "Algo deu errado!",
+                text: "Por favor, tente mais tarde",
+                icon: "warning"
+              });
             console.error(error);
         })
     }

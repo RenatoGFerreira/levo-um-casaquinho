@@ -12,11 +12,6 @@ export default function Menu({ isChecked, setIsChecked, isDarkMode, setIsDarkMod
     const [cityName, setCityName] = useState({ city: '' })
     const [mainColor, setMainColor] = useState('grey')
 
-
-    useEffect(() => {
-        setIcon(weatherData?.weather[0]?.icon)
-    }, [weatherData])
-
     const handleCheck = () => {
         setIsChecked((prevState) => !prevState)
     }
@@ -65,9 +60,6 @@ export default function Menu({ isChecked, setIsChecked, isDarkMode, setIsDarkMod
                 return setMainColor('black');
         }
     }
-    useEffect(() => {
-        weather()
-    }, [weatherData])
 
     function handleChange(event) {
         const newCity = { ...cityName };
@@ -82,6 +74,14 @@ export default function Menu({ isChecked, setIsChecked, isDarkMode, setIsDarkMod
         }
         setCity(cityName.city)
     }
+
+    useEffect(() => {
+        weather()
+    }, [weatherData])
+
+    useEffect(() => {
+        setIcon(weatherData?.weather[0]?.icon)
+    }, [weatherData])
 
     return (
         <ScreenContainer>
@@ -112,7 +112,7 @@ export default function Menu({ isChecked, setIsChecked, isDarkMode, setIsDarkMod
                                     <span style={{ color: mainColor }}>{isChecked ? (weatherData?.main?.temp * 1.8 + 32).toFixed(0) + "° F" : weatherData?.main?.temp.toFixed(0) + "º C"}</span>
                                 </div>
                                 <div>
-                                    <h1>{weatherData?.weather[0]?.description.charAt(0).toUpperCase() + weatherData?.weather[0]?.description.slice(1)}</h1>
+                                    <h1 style={{color: mainColor}}>{weatherData?.weather[0]?.description.charAt(0).toUpperCase() + weatherData?.weather[0]?.description.slice(1)}</h1>
                                 </div>
                             </>
                             : (
@@ -166,7 +166,6 @@ export const LoadingCircle = styled.div`
     }
 
 `
-
 export const ScreenContainer = styled.div`
     z-index: 1;
     box-sizing: border-box;

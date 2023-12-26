@@ -6,8 +6,7 @@ import { WeatherContext } from "../../context/WeatherContext";
 import ProximosDias from "../ProximosDIas/ProximosDias";
 
 export default function Home() {
-    const { weatherData } = useContext(WeatherContext)
-    const { nextDaysData } = useContext(WeatherContext)
+    const { weatherData, nextDaysData } = useContext(WeatherContext)
     const [today, setToday] = useState(true)
     const [nextDays, setNextDays] = useState(false)
     const [isChecked, setIsChecked] = useState(false)
@@ -89,7 +88,6 @@ const LoadingLine = styled.div`
         }
     }
 `
-
 const ScreenContainer = styled.div`
     display: flex;
     flex-direction: row;

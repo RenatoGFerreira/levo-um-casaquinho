@@ -3,7 +3,6 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts"
 import dayjs from "dayjs"
 
 export default function ProximosDias({ nextDaysData, isChecked }) {
-
     return (
         <ScreenContainer>
             <LineChart
