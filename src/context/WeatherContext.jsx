@@ -19,33 +19,16 @@ export const WeatherProvider = ({children}) => {
         })
         .catch((error) => {
             if (error.response.status === 404) {
-                //alert("Por favor, confira o nome da cidade digitada.")
-                Swal.fire({
-                    title: "Cidade não encontrada!",
-                    text: "Por favor, confira o nome da cidade digitada.",
-                    icon: "warning"
-                  });
+                alert("Por favor, confira o nome da cidade digitada.")
+        
               } else if (error.response.status === 401 || error.response.status === 400) {
-                //alert("Por favor, verifique as suas credenciais de acesso!")
-                Swal.fire({
-                    title: "404",
-                    text: "Por favor, verifique as suas credenciais de acesso!",
-                    icon: "warning"
-                  });
+                alert("Por favor, verifique as suas credenciais de acesso!")
+            
               } else if (error.response.status === 429) {
-                //alert("Por favor, aguarde um tempo. A API está com muitas requisições!")
-                Swal.fire({
-                    title: "429",
-                    text: "Por favor, aguarde um tempo. A API está com muitas requisições",
-                    icon: "warning"
-                  });
+                alert("Por favor, aguarde um tempo. A API está com muitas requisições!")
+                
               } else {
-                //alert("Algo de errado aconteceu! Tente novamente mais tarde.")
-                Swal.fire({
-                    title: "Algo deu errado!",
-                    text: "Por favor, tente mais tarde",
-                    icon: "warning"
-                  });
+                alert("Algo de errado aconteceu! Tente novamente mais tarde.")
                 console.error(error);
             }
         })
@@ -68,12 +51,7 @@ export const WeatherProvider = ({children}) => {
             setNextDaysData(dataForecast)
         })
         .catch((error) => {
-            //alert("Algo de errado aconteceu! Tente novamente mais tarde.")
-            Swal.fire({
-                title: "Algo deu errado!",
-                text: "Por favor, tente mais tarde",
-                icon: "warning"
-              });
+            alert("Algo de errado aconteceu! Tente novamente mais tarde.")
             console.error(error);
         })
     }
