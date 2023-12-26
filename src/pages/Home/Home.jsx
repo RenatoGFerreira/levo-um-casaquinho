@@ -7,6 +7,7 @@ import ProximosDias from "../ProximosDIas/ProximosDias";
 
 export default function Home() {
     const { weatherData, setWeatherData } = useContext(WeatherContext)
+    const { nextDaysData, setNextDaysData } = useContext(WeatherContext)
     const [today, setToday] = useState(true)
     const [nextDays, setNextDays] = useState(false)
 
@@ -25,8 +26,8 @@ export default function Home() {
             <BoxScreen>
                 <BoxTop>
                     <SubMenuScreen>
-                        <span onClick={selectToday}>Hoje</span>
-                        <span onClick={selectNextDays}>Próximos Dias</span>
+                        <span onClick={selectToday} style={{color: today ? "#000": "#C8C8C8"}}>Hoje</span>
+                        <span onClick={selectNextDays} style={{color: nextDays ? "#000": "#C8C8C8"}}>Próximos Dias</span>
                     </SubMenuScreen>
                     <CityScreen>
                         <h1>{weatherData ? weatherData?.name : "Carregando..."}</h1>
@@ -35,7 +36,7 @@ export default function Home() {
                     </CityScreen>
                 </BoxTop>
                 <BoxMiddle>
-                    {today ? <Hoje weatherData={weatherData} /> : <ProximosDias />}
+                    {today ? <Hoje weatherData={weatherData} /> : <ProximosDias nextDaysData={nextDaysData}/>}
                 </BoxMiddle>
                 <BoxBotton>
                     <TextScreen>
