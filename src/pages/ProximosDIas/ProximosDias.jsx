@@ -1,11 +1,15 @@
 import styled from "styled-components"
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts"
 import dayjs from "dayjs"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 
 export default function ProximosDias({ nextDaysData, isChecked }) {
-    const [getWidth, setGetWidht] = useState(1250)
+    const [getWidth, setGetWidth] = useState(innerWidth - 800)
+    const { innerWidth: width, innerHeight: height } = window;
+
+    console.log(innerWidth)
+    console.log(innerHeight)
 
     return (
         <ScreenContainer>
@@ -42,13 +46,26 @@ export default function ProximosDias({ nextDaysData, isChecked }) {
 }
 
 const ScreenContainer = styled.div`
+    overflow-x: scroll;
+    overflow-y: hidden;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 55vh;
-    margin: 10px 0;
-
+    height: 60vh;
+    margin: 10px 0px;
+    @media (max-width: 1200px) {
+        padding: 0px 20px 0px 60px;
+    }
+    @media (max-width: 992px) {
+        padding: 0px 20px 0px 300px;
+    }
+    @media (max-width: 768px) {
+        padding: 0px 20px 0px 550px;
+    }
+    @media (max-width: 480px) {
+        padding: 0px 20px 0px 650px;
+    }
 `

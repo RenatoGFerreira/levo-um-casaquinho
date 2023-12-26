@@ -61,6 +61,10 @@ const ScreenContainer = styled.div`
     @media (max-width: 1600px) {
         flex-direction: column;
     }
+    @media (max-width: 1200px) {
+        flex-direction: column;
+        overflow-x: hidden;
+    }
 
 `
 const BoxScreen = styled.div`
