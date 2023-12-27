@@ -1,7 +1,6 @@
 import axios from "axios";
 import dayjs from "dayjs";
 import { createContext, useEffect, useState } from "react";
-import Swal from 'sweetalert2'
 
 
 export const WeatherContext = createContext();

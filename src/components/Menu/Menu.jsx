@@ -84,16 +84,16 @@ export default function Menu({ isChecked, setIsChecked, isDarkMode, setIsDarkMod
     }, [weatherData])
 
     return (
-        <ScreenContainer>
-                <BoxContainer>
-                    <BoxTitle>
+        <ScreenContainer isDarkMode={isDarkMode}>
+                <BoxContainer isDarkMode={isDarkMode}>
+                    <BoxTitle isDarkMode={isDarkMode}>
                         <img src={casaquinho} alt="Casaquinho" />
                         <div>
                             <h1>Levo um casaquinho?</h1>
                         </div>
                     </BoxTitle>
                     <BoxInput>
-                        <StyledForm onSubmit={(event) => handleSubmit(event)}>
+                        <StyledForm isDarkMode={isDarkMode} onSubmit={(event) => handleSubmit(event)}>
                             <Icone onClick={(event) => handleSubmit(event)} />
                             <StyledInput
                                 type="text"
@@ -101,6 +101,7 @@ export default function Menu({ isChecked, setIsChecked, isDarkMode, setIsDarkMod
                                 name="city"
                                 value={cityName.city}
                                 onChange={(event) => handleChange(event)}
+                                isDarkMode={isDarkMode}
                             />
                         </StyledForm>
                     </BoxInput>
@@ -120,11 +121,11 @@ export default function Menu({ isChecked, setIsChecked, isDarkMode, setIsDarkMod
                             )}
                         <Barra />
                     </BoxTemperatura>
-                    <BoxDia>
+                    <BoxDia isDarkMode={isDarkMode}>
                         <span>{dayjs().format('DD/MM/YYYY')}</span>
                         <span>{weekday()}, {dayjs().format("hh:mm")}</span>
                     </BoxDia>
-                    <BoxModos>
+                    <BoxModos isDarkMode={isDarkMode}>
                         <div>
                             <ToggleSwitch isChecked={isChecked} onClick={handleCheck} />
                             <span>{isChecked ? "ºF" : "ºC"}</span>
@@ -134,7 +135,7 @@ export default function Menu({ isChecked, setIsChecked, isDarkMode, setIsDarkMod
                             <span>{isDarkMode ?  "Dark Mode" : "Light Mode"}</span>
                         </div>
                     </BoxModos>
-                    <BoxTexto>
+                    <BoxTexto isDarkMode={isDarkMode}>
                         <h1>Criado pro Renato Ferreira. 2023</h1>
                     </BoxTexto>
                 </BoxContainer>
@@ -169,7 +170,7 @@ export const LoadingCircle = styled.div`
 export const ScreenContainer = styled.div`
     z-index: 1;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: ${((props) => props.isDarkMode ? "#232526" : "#fff")};
     box-shadow: 5px 5px 5px #cecece ;
     width: 33%; 
     height: 100vh;
@@ -186,7 +187,7 @@ export const BoxContainer = styled.div`
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: ${((props) => props.isDarkMode ? "#232526" : "#fff")};;
     width: 92%;
     height: 92%;
 `
@@ -208,6 +209,7 @@ export const BoxTitle = styled.div`
         font-weight: 600;
         font-size: 60px;
         background: none;
+        color: ${(props) => props.isDarkMode? "#fff" : "#ooo"};
         @media (max-width: 1775px) {
             font-size: 50px;
         }
@@ -255,20 +257,20 @@ export const StyledForm = styled.form`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background: #efefef;
+    background-color: ${(props) => props.isDarkMode? "#2c2f30" : "#efefef"};
     margin: 30px 0 25px;
     border-radius: 15px;
 `
 export const StyledInput = styled.input`
     font-family: 'Poppins', sans-serif;
-    background: #efefef;
+    background-color: ${(props) => props.isDarkMode? "#2c2f30" : "#efefef"};    
     width: 85%;
     padding: 10px;
     border-radius: 5px;
     font-size: 24px;
     color: #424243;
     &::placeholder{
-        color: #424243;
+        color: ${(props) => props.isDarkMode? "#d4d0cb" : "#424243"};
     }
 `
 export const Icone = styled(RiSearch2Line)`
@@ -284,7 +286,6 @@ export const BoxTemperatura = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
     &>div{
         background: none;
         display: flex;
@@ -332,8 +333,8 @@ export const BoxDia = styled.div`
     justify-content: center;
     align-items: center;
     margin: 20px 0;
-
     &>span{
+        color: ${(props) => props.isDarkMode? "#d4d0cb" : "#000"};
         background: none;
         font-size: 26px;
         padding: 5px;
@@ -364,8 +365,9 @@ export const BoxModos = styled.div`
         margin: .2rem;
         &>span{
             margin-left: .6rem;
-            background: #fff;
+            background: ${(props) => props.isDarkMode? "#232526" : "#fff"};;
             font-size: 26px;
+            color: ${(props) => props.isDarkMode? "#d4d0cb" : "#000"};
         }
     } 
     @media (max-width: 1600px){
@@ -386,6 +388,7 @@ export const BoxTexto = styled.div`
     display: flex;
     justify-content: center;
     &>h1{
+        color: ${(props) => props.isDarkMode? "#d4d0cb" : "#424243"};
         background: none;
         font-size: 20px;
         font-weight: 400;
