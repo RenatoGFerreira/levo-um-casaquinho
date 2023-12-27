@@ -22,30 +22,30 @@ export default function Home() {
     }
 
     return (
-        <ScreenContainer>
+        <ScreenContainer isDarkMode={isDarkMode}>
             <Menu 
                 isDarkMode={isDarkMode} 
                 setIsDarkMode={setIsDarkMode}
                 isChecked={isChecked}
                 setIsChecked={setIsChecked}
             />
-            <BoxScreen>
-                <BoxTop>
-                    <SubMenuScreen>
-                        <span onClick={selectToday} style={{color: today ? "#000": "#C8C8C8"}}>Hoje</span>
-                        <span onClick={selectNextDays} style={{color: nextDays ? "#000": "#C8C8C8"}}>Próximos Dias</span>
+            <BoxScreen isDarkMode={isDarkMode}>
+                <BoxTop isDarkMode={isDarkMode}>
+                    <SubMenuScreen isDarkMode={isDarkMode}>
+                        <span onClick={selectToday} style={isDarkMode? {color: today ? "rgb(102, 82, 253)": "#C8C8C8"} : {color: today ? "#000": "#C8C8C8"}}>Hoje</span>
+                        <span onClick={selectNextDays} style={isDarkMode? {color: today ?  "#C8C8C8" : "rgb(102, 82, 253)"} : {color: today ? "#C8C8C8" : "#000"}}>Próximos Dias</span>
                     </SubMenuScreen>
-                    <CityScreen>
+                    <CityScreen isDarkMode={isDarkMode}>
                         <h1>{weatherData ? weatherData?.name : <LoadingLine/>}</h1>
                         <span>Latitude: {weatherData ? weatherData?.coord?.lat : 0}</span>
                         <span>Longitude: {weatherData ? weatherData?.coord?.lon : 0}</span>
                     </CityScreen>
                 </BoxTop>
-                <BoxMiddle>
-                    {today ? <Hoje weatherData={weatherData} isChecked={isChecked}/> : <ProximosDias nextDaysData={nextDaysData} isChecked={isChecked}/>}
+                <BoxMiddle isDarkMode={isDarkMode}>
+                    {today ? <Hoje weatherData={weatherData} isChecked={isChecked} isDarkMode={isDarkMode}/> : <ProximosDias nextDaysData={nextDaysData} isChecked={isChecked}  isDarkMode={isDarkMode}/>}
                 </BoxMiddle>
-                <BoxBotton>
-                    <TextScreen>
+                <BoxBotton isDarkMode={isDarkMode}>
+                    <TextScreen isDarkMode={isDarkMode}>
                         <span>Dados Fornecidos pela: <a target="_blank" href="https://openweathermap.org/api"> Open Weather API</a></span>
                     </TextScreen>
                 </BoxBotton>
@@ -91,6 +91,7 @@ const LoadingLine = styled.div`
 const ScreenContainer = styled.div`
     display: flex;
     flex-direction: row;
+    background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
     @media (max-width: 1600px) {
         flex-direction: column;
     }
@@ -98,9 +99,9 @@ const ScreenContainer = styled.div`
         flex-direction: column;
         overflow-x: hidden;
     }
-
 `
 const BoxScreen = styled.div`
+    background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
     width: 67%;
     display: flex;
     flex-direction: column;
@@ -110,6 +111,7 @@ const BoxScreen = styled.div`
     }
 `
 const BoxTop = styled.div`
+    background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
     @media (max-width: 1600px) {
         display: flex;
         flex-direction: column;
@@ -117,12 +119,16 @@ const BoxTop = styled.div`
     }
 `
 const BoxMiddle = styled.div`
+    background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
 `
 const BoxBotton = styled.div`
+    background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
 `
 const SubMenuScreen = styled.div`
+    background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
     display: flex;
     &>span{
+        background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
         font-size: 40px;
         margin-top: 50px;
         margin-left: 50px;
@@ -135,7 +141,10 @@ const SubMenuScreen = styled.div`
 }
 `
 const CityScreen = styled.div`
+    background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
     &>h1{
+        background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
+        color: ${(props) => props.isDarkMode? "#d4d0cb" : "#000"};
         font-size: 85px;
         font-weight: 400;
         letter-spacing: 3px;
@@ -144,6 +153,8 @@ const CityScreen = styled.div`
         margin-left: 50px;
     }
     &>span{
+        background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
+        color: ${(props) => props.isDarkMode? "#d4d0cb" : "#000"};
         font-size: 20px;
         margin: 0 25px;
         margin-left: 55px;
@@ -164,18 +175,22 @@ const CityScreen = styled.div`
     }
 `
 const TextScreen = styled.p`
+    background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
     &>span{
+        background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
         padding-left: 50px;
         margin-bottom: auto;
-        color: #222;
+        color: ${(props) => props.isDarkMode? "#d4d0cb" : "#000"};
         font-family: Poppins;
         font-size: 24px;
         font-style: normal;
         font-weight: 400;
         line-height: 48px;
         &>a{
+            background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
             text-decoration: none;
             font-weight: 600;
+            color: ${(props) => props.isDarkMode? "rgb(102, 82, 253)" : "rgb(77,68,148)"};
         }
         @media (max-width: 1600px) {
             display: flex;

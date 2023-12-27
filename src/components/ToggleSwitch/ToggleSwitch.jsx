@@ -37,6 +37,6 @@ const ToggleSwitchWrapper = styled.label`
     }
     input:checked + span {
         left: 50%;
-        background-color: black;
+        background-color: #efefef;
     }
 `

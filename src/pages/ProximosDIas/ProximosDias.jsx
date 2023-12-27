@@ -2,9 +2,9 @@ import styled from "styled-components"
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts"
 import dayjs from "dayjs"
 
-export default function ProximosDias({ nextDaysData, isChecked }) {
+export default function ProximosDias({ nextDaysData, isChecked, isDarkMode }) {
     return (
-        <ScreenContainer>
+        <ScreenContainer isDarkMode={isDarkMode}>
             <LineChart
                 data={isChecked? nextDaysData?.map((item) => ({ ...item, Temperatura: (item.Temperatura * 1.8 + 32).toFixed(0)})) : nextDaysData}
                 width={1150}
@@ -38,8 +38,7 @@ export default function ProximosDias({ nextDaysData, isChecked }) {
 }
 
 const ScreenContainer = styled.div`
-    overflow-x: scroll;
-    overflow-y: scroll;
+    background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -50,6 +49,8 @@ const ScreenContainer = styled.div`
     margin: 10px 0px;
     @media (max-width: 1200px) {
         padding: 0px 20px 0px 60px;
+        overflow-x: scroll;
+        overflow-y: scroll;
     }
     @media (max-width: 992px) {
         padding: 0px 20px 0px 300px;

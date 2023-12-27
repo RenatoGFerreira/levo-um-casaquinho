@@ -1,9 +1,9 @@
 import styled from "styled-components"
 
-export default function Hoje({ weatherData, isChecked }) {
+export default function Hoje({ weatherData, isChecked, isDarkMode }) {
     return (
-        <ScreenContainer>
-            <InfoScreen>
+        <ScreenContainer isDarkMode={isDarkMode}>
+            <InfoScreen isDarkMode={isDarkMode}>
                 <InfoBox>
                     <h1>Mínima</h1>
                     <span>{isChecked? (weatherData?.main?.temp * 1.8 + 32).toFixed(0) + "° F" : weatherData ? weatherData?.main?.temp_min.toFixed(0) + "º C" : "0"}</span>
@@ -21,7 +21,7 @@ export default function Hoje({ weatherData, isChecked }) {
                     <span>{weatherData ? weatherData?.wind?.speed : "0"} m/s</span>
                 </InfoBox>
             </InfoScreen>
-            <RespScreen>
+            <RespScreen isDarkMode={isDarkMode}>
                 {weatherData? weatherData?.main?.temp_min > 17 ? <span> Não, você não deve levar um casaquinho!</span> : <span>Sim, você deve levar um casaquinho!</span> : <LoadingLine/>}
             </RespScreen>
         </ScreenContainer>
@@ -54,19 +54,18 @@ const LoadingLine = styled.div`
         50% {
             width: 100%;
         }
-
         100% {
             width: 0;
             right: 0;
             left: unset;
         }
     }
-
 `
 const ScreenContainer = styled.div`
-
+    background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
 `
 const InfoScreen = styled.div`
+    background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
     padding: 20px;
     display: flex;
     flex-direction: row;
@@ -118,13 +117,17 @@ const InfoBox = styled.div`
 const RespScreen = styled.div`
     margin-top: 15px;
     padding-left: 50px;
-    color: #AFADAD;
+    background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
+    color: ${(props) => props.isDarkMode? "#d4d0cb" : "#AFADAD"};
     font-family: Poppins;
     font-size: 24px;
     font-style: italic;
     font-weight: 400;
     line-height: 48px;
     margin-bottom: 50px;
+    & span{
+        background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
+    }
     @media (max-width: 1600px) {
         display: flex;
         justify-content: center;
