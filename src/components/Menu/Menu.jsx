@@ -136,7 +136,7 @@ export default function Menu({ isChecked, setIsChecked, isDarkMode, setIsDarkMod
                     </div>
                 </BoxModos>
                 <BoxTexto isDarkMode={isDarkMode}>
-                    <h1>Criado pro Renato Ferreira. 2023</h1>
+                    <h1>Criado por Renato Ferreira. 2023</h1>
                 </BoxTexto>
             </BoxContainer>
         </ScreenContainer>

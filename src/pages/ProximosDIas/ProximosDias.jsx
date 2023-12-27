@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts"
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from "recharts"
 import dayjs from "dayjs"
 
 export default function ProximosDias({ nextDaysData, isChecked, isDarkMode }) {
@@ -10,24 +10,30 @@ export default function ProximosDias({ nextDaysData, isChecked, isDarkMode }) {
                 width={1150}
                 height={500}
                 margin={{ top: 30, right: 10, left: 30, bottom: 10 }}
+                background="#000"
             >
                 <Line
                     type="monotone"
                     dataKey="Temperatura"
-                    stroke="#8884d8"
+                    stroke={isDarkMode? "rgb(102, 82, 253)" : "rgb(77,68,148)"}
                 />
                 <CartesianGrid
-                    stroke="#000"
+                    stroke={isDarkMode? "#efefef" : "#000"}
                     strokeDasharray="3 3"
                 />
                 <XAxis
+                    stroke={isDarkMode? "#fff" : "#000"}
                     type="category"
                     dataKey="Dia"
                     tickFormatter={(value) => `${(dayjs(value).format("DD/MM"))}`} 
                 />
                 <YAxis
+                    stroke={isDarkMode? "#fff" : "#000"}
                     type="number"
-                    tickFormatter={isChecked ? (value) => `${(value)}º F` : (value) => `${(value)}º C`} 
+                    dataKey={"Temperatura"}
+                    tickFormatter={isChecked ? (value) => `${(value)}º F` : (value) => `${(value)}º C`}
+                    tickCount={8}
+                    domain={isChecked ? [20, 120] : [0, 45]}
                 />
                 <Tooltip
                     formatter={(value) => `${(value)}º C`}
@@ -38,7 +44,7 @@ export default function ProximosDias({ nextDaysData, isChecked, isDarkMode }) {
 }
 
 const ScreenContainer = styled.div`
-    background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" } ;
+    background-color: ${(props) => props.isDarkMode? "#2C2F30" : "#efefef" };
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
