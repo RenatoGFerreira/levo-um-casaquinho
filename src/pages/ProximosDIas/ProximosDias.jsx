@@ -25,7 +25,7 @@ export default function ProximosDias({ nextDaysData, isChecked, isDarkMode }) {
                     stroke={isDarkMode? "#fff" : "#000"}
                     type="category"
                     dataKey="Dia"
-                    tickFormatter={(value) => `${(dayjs(value).format("DD/MM"))}`} 
+                    tickFormatter={(value) => `${(value)}`} 
                 />
                 <YAxis
                     stroke={isDarkMode? "#fff" : "#000"}

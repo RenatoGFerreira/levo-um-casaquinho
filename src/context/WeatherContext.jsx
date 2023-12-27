@@ -10,6 +10,8 @@ export const WeatherProvider = ({children}) => {
     const [nextDaysData, setNextDaysData] = useState(null)
     const [city, setCity] = useState(import.meta.env.VITE_CITY_BASE)
 
+    console.log( nextDaysData)
+
     const getWeatherData = async() => {
         const urlTodayAPI = `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=pt_br&APPID=${import.meta.env.VITE_API_KEY}&units=metric`
         await axios.get(urlTodayAPI)
@@ -38,12 +40,13 @@ export const WeatherProvider = ({children}) => {
         await axios.get(urlForecastAPI)
         .then((response) => {
             let dataForecast = []
-            for(let i = 0 ; i <= 6 ; i++){
+            for(let i = 0 ; i <= 7 ; i++){
+                let timestamp = response.data.list[i].dt_txt;
+                let minhaData = new Date(timestamp)
+
                 dataForecast.push({
                     Temperatura: response.data.list[i].main.temp, 
-                    Dia: response.data.list[i].dt
-                    //day: dayjs(response.data.list[i].dt_txt).format(`DD/MM`)
-                    //Date: dayjs(response.data.list[i].dt).format("DD/MM/YYYY")
+                    Dia: dayjs(minhaData.setDate(minhaData.getDate() + i)).format("DD/MM")
                 })
                 
             }
