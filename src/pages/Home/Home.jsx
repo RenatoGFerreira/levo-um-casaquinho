@@ -199,5 +199,4 @@ const TextScreen = styled.p`
             color: #afafad;
         }
     }
-
 `;

@@ -1,6 +1,5 @@
 import styled from "styled-components"
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from "recharts"
-import dayjs from "dayjs"
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts"
 
 export default function ProximosDias({ nextDaysData, isChecked, isDarkMode }) {
     return (
