@@ -3,7 +3,7 @@ Vai sair de casa? Vai passear? Viajar por alguns dias? Surgiu aquela dúvida de 
 
 # Teste Aqui
 * [Deploy](https://levo-um-casaquinho-lemon.vercel.app/)
-* [Video Demontrativo](https://www.youtube.com/watch?v=MN-XrHVIlKs)
+* [Video Demonstrativo](https://www.youtube.com/watch?v=MN-XrHVIlKs)
 
 # Imagens da Aplicação
 
