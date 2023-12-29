@@ -2,8 +2,8 @@
 Vai sair de casa? Vai passear? Viajar por alguns dias? Surgiu aquela dúvida de levar ou não levar um casaquinho?😫 Resolvi isso com esta aplicação em ReactJS + Vite, onde é possível descobrir a temperatura atual, mínima e máxima além de saber a umidade do ar e a velocidade do vento.
 
 # Teste Aqui
-[Deploy](https://levo-um-casaquinho-lemon.vercel.app/)
-[Video Demontrativo](https://www.youtube.com/watch?v=MN-XrHVIlKs)
+* [Deploy](https://levo-um-casaquinho-lemon.vercel.app/)
+* [Video Demontrativo](https://www.youtube.com/watch?v=MN-XrHVIlKs)
 
 # Imagens da Aplicação
 
