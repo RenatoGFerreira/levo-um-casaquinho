@@ -5,16 +5,21 @@ Vai sair de casa? Vai passear? Viajar por alguns dias? Surgiu aquela dúvida de 
 [Deploy](https://levo-um-casaquinho-lemon.vercel.app/)
 
 # Imagens da Aplicação
+
+## Tela Principal
 ![Tela Principal](./public/Imagens/tela_padrao.png)
+## Próximos dias e Temperatura em Fahrenheit
 ![Próximos dias e Temperatura em Fahrenheit](./public/Imagens/grafico_e_modo_fahrenheit.png)
+## Modo Noturno
 ![Modo Noturno](./public/Imagens/modo_noturno.png)
+## Tela Responsiva
 ![Tela Responsiva](./public/Imagens/responsividade.png)
 
 # Tecnologias
-ReactJS
-Vite (5.0.8)
-[OpenWeather API](https://openweathermap.org/)
-[Recharts](https://recharts.org/en-US/)
+* ReactJS
+* Vite (5.0.8)
+* [OpenWeather API](https://openweathermap.org/)
+* [Recharts](https://recharts.org/en-US/)
 
 # Bibliotecas
 * axios
